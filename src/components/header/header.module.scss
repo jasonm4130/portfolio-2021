@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    color: var(--white);
+    background-color: var(--primary);
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-list-item {
+    margin: 0;
+    padding: 25px;
+    list-style: none;
+    a {
+        color: var(--white);
+        text-decoration: none;
+    }
+}
