@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const pxToRem = require('postcss-pxtorem');
+const modulesValues = require('postcss-modules-values');
 
 module.exports = {
   plugins: [
@@ -11,6 +12,7 @@ module.exports = {
         'letter-spacing',
         '*margin*',
         '*padding*',
+        '*radius*',
       ],
     }),
   ],

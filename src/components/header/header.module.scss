@@ -1,25 +1,85 @@
+@use "../../styles/breakpoints.scss";
+
 .header {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  color: var(--white);
+
+  @include breakpoints.up(tablet) {
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    color: var(--white);
+    flex-wrap: nowrap;
+  }
+}
+
+.header-container {
+  &-bg-primary {
     background-color: var(--primary);
+  }
 }
 
 .nav-list {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 0;
+  margin: 0;
+  margin-bottom: 25px;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  transition: max-height var(--transition);
+
+  &-open {
+    max-height: 400px;
+  }
+
+  @include breakpoints.up(tablet) {
     flex-direction: row;
+    max-height: initial;
+    margin-bottom: 0;
+  }
 }
 
 .nav-list-item {
-    margin: 0;
+  margin: 0;
+  font-weight: normal;
+  font-size: 18px;
+  list-style: none;
+
+  a {
+    display: inline-block;
     padding: 25px;
-    list-style: none;
-    a {
-        color: var(--white);
-        text-decoration: none;
+    color: var(--white);
+    text-align: center;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
     }
+  }
+
+  &-cta {
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 40px;
+      font-weight: 500;
+      background-color: var(--highlight);
+      border-radius: 50px 0;
+      transition: background-color var(--transition);
+
+      &:focus,
+      &:hover {
+        background-color: var(--highlight-darker);
+      }
+    }
+  }
 }

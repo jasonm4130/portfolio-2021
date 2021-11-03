@@ -1,0 +1,51 @@
+@use "../../styles/breakpoints.scss";
+
+.navbar-toggler {
+  width: auto;
+  min-width: 4rem;
+  min-height: 4rem;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  background: transparent;
+  border: none;
+
+  @include breakpoints.up(tablet) {
+    display: none;
+  }
+}
+
+.bars {
+  width: 3.25rem;
+  cursor: pointer;
+  .line {
+    transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 4;
+    stroke-linecap: square;
+    &.top {
+      stroke-dasharray: 40 172;
+    }
+    &.middle {
+      stroke-dasharray: 40 111;
+    }
+    &.bottom {
+      stroke-dasharray: 40 172;
+    }
+  }
+  &.active-state {
+    .top {
+      stroke-dashoffset: -132px;
+    }
+    .middle {
+      stroke-dashoffset: -71px;
+    }
+    .bottom {
+      stroke-dashoffset: -132px;
+    }
+  }
+}

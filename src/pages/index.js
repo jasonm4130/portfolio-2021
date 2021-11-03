@@ -1,16 +1,12 @@
 import * as React from 'react';
-
-// This should be moved into it's own template once created
-import 'normalize.css';
-
-import '../global.scss';
-import Header from '../components/header/Header';
+import Layout from '../components/layout/Layout';
+import Hero from '../components/hero/Hero';
 
 // markup
 const IndexPage = () => (
-  <main>
-    <Header />
-  </main>
+  <Layout>
+    <Hero />
+  </Layout>
 );
 
 export default IndexPage;

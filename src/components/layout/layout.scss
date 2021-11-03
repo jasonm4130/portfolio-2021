@@ -1,0 +1,19 @@
+:root {
+  $highlight: #fd5f00;
+
+  --base: #13334c;
+  --highlight: #{$highlight};
+  --highlight-darker: #{adjust-hue($highlight, -3)};
+  --primary: #005792;
+  --light: #f6f6e9;
+  --white: #ffffff;
+  --max-width: 1400px;
+  --ibm-mono: "IBM Plex Mono", monospace;
+  --transition: 0.3s ease-in-out;
+}
+
+html {
+  overflow-x: hidden;
+  font-weight: 500;
+  font-family: var(--ibm-mono);
+}

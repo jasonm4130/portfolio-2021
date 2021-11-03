@@ -1,0 +1,16 @@
+$media: screen;
+$feature: min-width;
+$tablet: 768px;
+$desktop: 1200px;
+
+@mixin up($breakpoint) {
+  @if $breakpoint == tablet {
+    @media #{$media} and ($feature: $tablet) {
+      @content;
+    }
+  } @else if $breakpoint == desktop {
+    @media #{$media} and ($feature: $desktop) {
+      @content;
+    }
+  }
+}

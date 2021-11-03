@@ -1,38 +1,54 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'gatsby';
-import { header, navList, navListItem } from './header.module.scss';
+import {
+  header,
+  navList,
+  navListItem,
+  navListItemCta,
+  navListOpen,
+  headerContainerBgPrimary,
+} from './header.module.scss';
 import Logo from '../../assets/svgs/logo.svg';
+import HamburgerMenuIcon from '../hamburgerMenuIcon/HamburgerMenuIcon';
 
-const NavItem = ({ name, link }) => (
-  <li className={navListItem}>
+const NavItem = ({ name, link, isCta = false }) => (
+  <li className={`${navListItem} ${isCta ? navListItemCta : ''}`}>
     <Link to={link}>{name}</Link>
   </li>
 );
 
-// markup
 const Header = () => {
   const navItems = [
     { link: '#', name: 'Home' },
     { link: '#', name: 'Experience' },
     { link: '#', name: 'About Me' },
     { link: '#', name: 'Projects' },
-    { link: '#', name: 'Contact' },
+    { link: '#', name: 'Contact ', isCta: true },
   ];
+
+  const [navOpen, setNavOpen] = useState(false);
+
   return (
-    <header className={header}>
-      <div>
+    <div className={headerContainerBgPrimary}>
+      <header className={header}>
         <Logo />
-      </div>
-      <nav>
-        <ul className={navList}>
-          {navItems.map((item) => (
-            <NavItem key={item.name} name={item.name} link={item.link} />
-          ))}
-        </ul>
-      </nav>
-    </header>
+        <HamburgerMenuIcon navOpen={navOpen} setNavOpen={setNavOpen} />
+        <nav>
+          <ul className={`${navList} ${navOpen ? navListOpen : ''}`}>
+            {navItems.map((item) => (
+              <NavItem
+                key={item.name}
+                name={item.name}
+                link={item.link}
+                isCta={item.isCta}
+              />
+            ))}
+          </ul>
+        </nav>
+      </header>
+    </div>
   );
 };
 
@@ -41,4 +57,5 @@ export default Header;
 NavItem.propTypes = {
   name: PropTypes.string,
   link: PropTypes.string,
+  isCta: PropTypes.bool,
 };
