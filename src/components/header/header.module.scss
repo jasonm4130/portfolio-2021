@@ -1,6 +1,9 @@
 @use "../../styles/breakpoints.scss";
 
 .header {
+  position: absolute;
+  left: 50%;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -10,6 +13,7 @@
   max-width: var(--max-width);
   margin: 0 auto;
   color: var(--white);
+  transform: translateX(-50%);
 
   @include breakpoints.up(tablet) {
     flex-direction: row;
@@ -19,7 +23,7 @@
 
 .header-container {
   &-bg-primary {
-    background-color: var(--primary);
+    background-color: pink;
   }
 }
 

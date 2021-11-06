@@ -31,24 +31,22 @@ const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   return (
-    <div className={headerContainerBgPrimary}>
-      <header className={header}>
-        <Logo />
-        <HamburgerMenuIcon navOpen={navOpen} setNavOpen={setNavOpen} />
-        <nav>
-          <ul className={`${navList} ${navOpen ? navListOpen : ''}`}>
-            {navItems.map((item) => (
-              <NavItem
-                key={item.name}
-                name={item.name}
-                link={item.link}
-                isCta={item.isCta}
-              />
-            ))}
-          </ul>
-        </nav>
-      </header>
-    </div>
+    <header className={header}>
+      <Logo />
+      <HamburgerMenuIcon navOpen={navOpen} setNavOpen={setNavOpen} />
+      <nav>
+        <ul className={`${navList} ${navOpen ? navListOpen : ''}`}>
+          {navItems.map((item) => (
+            <NavItem
+              key={item.name}
+              name={item.name}
+              link={item.link}
+              isCta={item.isCta}
+            />
+          ))}
+        </ul>
+      </nav>
+    </header>
   );
 };
 
