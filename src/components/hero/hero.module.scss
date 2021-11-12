@@ -1,3 +1,5 @@
+@use "../../styles/breakpoints.scss";
+
 .hero {
   position: relative;
   width: 100%;
@@ -7,12 +9,17 @@
   position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50%;
   max-width: var(--max-width);
   margin: 0 auto;
+  padding: 90px 15px;
+
+  @include breakpoints.up(tablet) {
+    flex-direction: row;
+    padding: 120px 25px 240px;
+  }
 }
 
 .heroBg {
@@ -20,10 +27,96 @@
   top: 0;
   left: 50%;
   min-width: 100%;
-  min-height: 100%;
+  height: 100%;
   transform: translateX(-50%);
 }
 
+.heroElipse1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 230px;
+}
+
+.heroElipse2 {
+  position: absolute;
+  right: 0;
+  bottom: -115px;
+  width: 175px;
+}
+
 .heroProfile {
-  width: 50%;
+  @include breakpoints.up(desktop) {
+    width: 50%;
+  }
+}
+
+.heroContent {
+  color: var(--light);
+  font-weight: 500;
+  @include breakpoints.up(desktop) {
+    width: 50%;
+  }
+}
+
+.heroLead {
+  display: block;
+  font-weight: 500;
+  font-size: 24px;
+  @include breakpoints.up(tablet) {
+    font-size: 26px;
+  }
+  @include breakpoints.up(desktop) {
+    font-size: 30px;
+  }
+}
+
+.heroSmall {
+  display: block;
+  font-weight: 500;
+  font-size: 18px;
+  @include breakpoints.up(tablet) {
+    font-size: 20px;
+  }
+  @include breakpoints.up(desktop) {
+    font-size: 24px;
+  }
+}
+
+.heroH1 {
+  display: block;
+  margin-bottom: 18px;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 1.2;
+  @include breakpoints.up(tablet) {
+    margin-bottom: 30px;
+    font-size: 60px;
+  }
+  @include breakpoints.up(desktop) {
+    margin-bottom: 50px;
+    font-size: 144px;
+  }
+}
+
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  background-color: var(--highlight);
+  border-radius: 50px 0;
+  transition: background-color var(--transition);
+
+  @include breakpoints.up(tablet) {
+    padding: 18px 40px;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: var(--highlight-darker);
+  }
 }

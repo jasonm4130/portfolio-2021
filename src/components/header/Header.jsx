@@ -8,7 +8,7 @@ import {
   navListItem,
   navListItemCta,
   navListOpen,
-  headerContainerBgPrimary,
+  nav,
 } from './header.module.scss';
 import Logo from '../../assets/svgs/logo.svg';
 import HamburgerMenuIcon from '../hamburgerMenuIcon/HamburgerMenuIcon';
@@ -34,7 +34,7 @@ const Header = () => {
     <header className={header}>
       <Logo />
       <HamburgerMenuIcon navOpen={navOpen} setNavOpen={setNavOpen} />
-      <nav>
+      <nav className={nav}>
         <ul className={`${navList} ${navOpen ? navListOpen : ''}`}>
           {navItems.map((item) => (
             <NavItem
