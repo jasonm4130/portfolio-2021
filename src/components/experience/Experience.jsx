@@ -23,7 +23,7 @@ import Elipse from '../../assets/svgs/experience-elipse.svg';
 import Wave from '../../assets/svgs/experience-wave.svg';
 
 const Experience = () => {
-  // Get the language states that were generated at build time
+  // Get the language states that were generated at build time and sort by xps
   const languageStats = useStaticQuery(graphql`
     query {
       allCodeStatsLanguage {
@@ -34,7 +34,7 @@ const Experience = () => {
         }
       }
     }
-  `).allCodeStatsLanguage.nodes;
+  `).allCodeStatsLanguage.nodes.sort((a, b) => b.xps - a.xps);
 
   //   Setup the local state for language stats (using the language stats from the query above)
   const [stats, setStats] = useState(languageStats || []);
