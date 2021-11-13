@@ -1,2 +1,161 @@
+@use "../../styles/breakpoints.scss";
+
 .experience {
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: var(--max-width);
+  margin: 75px auto;
+  padding: 0 15px;
+  @include breakpoints.up(tablet) {
+    margin: 50px auto;
+  }
+  @include breakpoints.up(desktop) {
+    flex-wrap: nowrap;
+  }
+}
+
+.experience-lead-section {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 3;
+  text-align: center;
+  @include breakpoints.up(tablet) {
+    text-align: left;
+  }
+  @include breakpoints.up(desktop) {
+    margin: 0 15px;
+  }
+}
+
+.experience-lead {
+  position: relative;
+  display: inline-block;
+  color: var(--highlight);
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  @include breakpoints.up(tablet) {
+    padding-left: 70px;
+    font-size: 18px;
+    &:before {
+      content: "";
+    }
+  }
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 55px;
+    height: 1px;
+    background-color: var(--highlight);
+    transform: translateY(-50%);
+  }
+}
+
+.experience-heading {
+  margin: 0;
+  padding: 0;
+  color: var(--light);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.2;
+  @include breakpoints.up(desktop) {
+    font-size: 70px;
+  }
+}
+
+.experience-info {
+  margin: 0;
+  color: var(--light);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  @include breakpoints.up(desktop) {
+    font-size: 18px;
+  }
+}
+
+.experience-grid {
+  display: grid;
+  grid-gap: 1px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 25px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  @include breakpoints.up(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 15px 0 0;
+  }
+  @include breakpoints.up(desktop) {
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 15px;
+  }
+}
+
+.experience-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  background-color: var(--base);
+  &:nth-of-type(4) ~ .experience-item {
+    display: none;
+    @include breakpoints.up(tablet) {
+      display: flex;
+    }
+  }
+  &:nth-of-type(6) ~ .experience-item {
+    display: none;
+    @include breakpoints.up(desktop) {
+      display: flex;
+    }
+  }
+}
+
+.experience-points {
+  margin-bottom: 5px;
+  color: var(--light);
+  font-size: 40px;
+  font-family: var(--ibm);
+  line-height: 1.2;
+}
+
+.experience-points-small {
+  font-size: 18px;
+}
+
+.experience-points-change {
+  color: var(--light);
+  font-family: var(--ibm);
+}
+
+.experience-name {
+  color: var(--highlight);
+  font-weight: 600;
+}
+
+.experience-elipse {
+  position: absolute;
+  bottom: -175px;
+  left: -500px;
+  width: 750px;
+  height: auto;
+}
+
+.experience-wave {
+  position: absolute;
+  top: 0;
+  right: -575px;
+  width: auto;
+  height: 980px;
 }

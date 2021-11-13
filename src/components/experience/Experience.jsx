@@ -1,13 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'gatsby';
+import { Link, useStaticQuery, graphql } from 'gatsby';
 import axios from 'contentful-management/node_modules/axios';
-import { experience } from './experience.module.scss';
+import {
+  experience,
+  experienceContainer,
+  experienceLeadSection,
+  experienceLead,
+  experienceHeading,
+  experienceInfo,
+  experienceGrid,
+  experienceItem,
+  experiencePoints,
+  experiencePointsSmall,
+  experiencePointsChange,
+  experienceName,
+  experienceElipse,
+  experienceWave,
+} from './experience.module.scss';
+import Elipse from '../../assets/svgs/experience-elipse.svg';
+import Wave from '../../assets/svgs/experience-wave.svg';
 
 const Experience = () => {
-  const [stats, setStats] = useState(null);
+  // Get the language states that were generated at build time
+  const languageStats = useStaticQuery(graphql`
+    query {
+      allCodeStatsLanguage {
+        nodes {
+          xps
+          name
+          new_xps
+        }
+      }
+    }
+  `).allCodeStatsLanguage.nodes;
 
+  //   Setup the local state for language stats (using the language stats from the query above)
+  const [stats, setStats] = useState(languageStats || []);
+
+  //   Get the language stats from the live api
   useEffect(() => {
     // Get the stats from codestats api
     async function fetchData() {
@@ -27,7 +59,7 @@ const Experience = () => {
       const languages = Object.keys(response.data.languages).map(
         (language) => ({
           ...response.data.languages[language],
-          language,
+          name: language,
         })
       );
 
@@ -40,12 +72,32 @@ const Experience = () => {
 
   return (
     <section className={experience}>
-      <h2>Experience</h2>
-      {stats.map((language) => (
-        <div key={language.language}>
-          {language.language}, {language.xps}
+      <div className={experienceContainer}>
+        <div className={experienceLeadSection}>
+          <div className={experienceLead}>Skill Set</div>
+          <h2 className={experienceHeading}>Experience</h2>
+          <p className={experienceInfo}>
+            Each xp point represents a charachter typed. This has been recorded
+            with CodeStats since April 2018.
+          </p>
         </div>
-      ))}
+        <div className={experienceGrid}>
+          {stats.slice(0, 9).map((language) => (
+            <div key={language.name} className={experienceItem}>
+              <div className={experiencePoints}>
+                {language.xps.toLocaleString()}
+                <span className={experiencePointsSmall}>xp</span>
+              </div>
+              <div className={experiencePointsChange}>
+                +{language.new_xps.toLocaleString()} today
+              </div>
+              <div className={experienceName}>{language.name}</div>
+            </div>
+          ))}
+        </div>
+        <Elipse className={experienceElipse} />
+        <Wave className={experienceWave} />
+      </div>
     </section>
   );
 };
