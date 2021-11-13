@@ -17,6 +17,7 @@
     "@fontsource/ibm-plex-mono": "^4.5.1",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
+    "axios": "^0.24.0",
     "gatsby": "^4.0.2",
     "gatsby-plugin-image": "^2.0.0",
     "gatsby-plugin-manifest": "^4.0.0",

@@ -42,5 +42,11 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: 'gatsby-source-codestats',
+      options: {
+        user: 'jasonm4130',
+      },
+    },
   ],
 };
