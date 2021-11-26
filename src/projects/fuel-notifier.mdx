@@ -1,0 +1,27 @@
+---
+title: Fuel Notifier
+date: "2019-11-21"
+technologies: [nodejs, api]
+---
+
+```javascript
+const { FuelNotifier } = require("@fuel-js/fuel-notifier");
+
+// this is to test some syntax highlighting
+const fuelNotifier = new FuelNotifier({
+  apiKey: "<api-key>",
+  apiSecret: "<api-secret>",
+  apiUrl: "https://api.fuel.fuelfabric.com",
+  apiVersion: "v1",
+  webhookUrl: "https://webhook.fuelfabric.com/webhook/<webhook-id>",
+  webhookSecret: "<webhook-secret>",
+  webhookVersion: "v1",
+  webhookHeaders: {
+    "X-Custom-Header": "Custom-Value",
+  },
+  webhookMethod: "POST",
+  webhookBody: {
+    test: "test",
+  },
+});
+```
