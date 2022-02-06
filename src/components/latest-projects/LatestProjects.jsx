@@ -19,12 +19,15 @@ const LatestProjects = () => {
           frontmatter {
             title
             technologies
+            path
           }
-          slug
+          id
         }
       }
     }
   `);
+
+  console.log(projects);
 
   return (
     <section className={latestProjects}>
@@ -37,7 +40,7 @@ const LatestProjects = () => {
         </div>
         <div className={latestProjectsGrid}>
           {projects.allMdx.nodes.map((project) => (
-            <Link to={project.slug} key={project.slug}>
+            <Link to={project.frontmatter.path} key={project.id}>
               {project.frontmatter.title}
             </Link>
           ))}

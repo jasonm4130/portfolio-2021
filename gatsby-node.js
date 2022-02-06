@@ -11,9 +11,9 @@ async function turnPostIntoPage({ graphql, actions }) {
         nodes {
           frontmatter {
             title
+            path
           }
           id
-          slug
         }
       }
     }
@@ -27,15 +27,15 @@ async function turnPostIntoPage({ graphql, actions }) {
   // Create a page for each post
   const posts = data.allMdx.nodes;
 
-  posts.forEach((post) => {
+  posts.forEach((node) => {
+    const pagePath = node.frontmatter.path;
     actions.createPage({
-      path: `/posts/${post.slug}`,
+      path: pagePath,
       component: pageTemplate,
       context: {
-        slug: post.node.fields.slug,
         collection: 'posts',
-        id: post.id,
-        pathPrefix: `/posts`,
+        id: node.id,
+        pagePath,
       },
     });
   });
@@ -52,9 +52,9 @@ async function turnProjectIntoPage({ graphql, actions }) {
         nodes {
           frontmatter {
             title
+            path
           }
           id
-          slug
         }
       }
     }
@@ -68,15 +68,15 @@ async function turnProjectIntoPage({ graphql, actions }) {
   // Create a page for each post
   const projects = data.allMdx.nodes;
 
-  projects.forEach((project) => {
+  projects.forEach((node) => {
+    const pagePath = node.frontmatter.path;
     actions.createPage({
-      path: `/projects/${project.slug}`,
+      path: pagePath,
       component: pageTemplate,
       context: {
-        slug: project.node.fields.slug,
         collection: 'projects',
-        id: project.id,
-        pathPrefix: `/projects`,
+        id: node.id,
+        pagePath,
       },
     });
   });
