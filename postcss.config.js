@@ -5,15 +5,8 @@ const modulesValues = require('postcss-modules-values');
 module.exports = {
   plugins: [
     pxToRem({
-      propList: [
-        'font',
-        'font-size',
-        'line-height',
-        'letter-spacing',
-        '*margin*',
-        '*padding*',
-        '*radius*',
-      ],
+      propList: ['*'],
+      mediaQuery: false,
     }),
   ],
 };

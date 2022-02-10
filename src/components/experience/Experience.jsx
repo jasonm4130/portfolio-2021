@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStaticQuery, graphql } from 'gatsby';
-import axios from 'contentful-management/node_modules/axios';
+import axios from 'axios';
 import {
   experience,
   experienceContainer,

@@ -9,9 +9,48 @@ import {
   latestProjectsLead,
   latestProjectsBanner,
   latestProjectsGrid,
+  projectCard,
+  projectCardTags,
+  projectCardLink,
+  projectCardLogoContainer,
 } from './latest-projects.module.scss';
 
+// Import the backgrounds
+import Background1 from '../../assets/svgs/project-backgrounds/background-1.svg';
+import Background2 from '../../assets/svgs/project-backgrounds/background-2.svg';
+import Background3 from '../../assets/svgs/project-backgrounds/background-3.svg';
+import Background4 from '../../assets/svgs/project-backgrounds/background-4.svg';
+import Background5 from '../../assets/svgs/project-backgrounds/background-5.svg';
+import Background6 from '../../assets/svgs/project-backgrounds/background-6.svg';
+
+const backgrounds = {};
+
+const backgroundArray = [
+  <Background1 />,
+  <Background2 />,
+  <Background3 />,
+  <Background4 />,
+  <Background5 />,
+  <Background6 />,
+];
+
 const LatestProjects = () => {
+  function getBackground(key) {
+    if (backgrounds[key]) {
+      return backgrounds[key];
+    }
+
+    // Get a random background
+    const randomBackground =
+      backgroundArray[Math.floor(Math.random() * backgroundArray.length)];
+
+    // Add the background to the object
+    backgrounds[key] = randomBackground;
+
+    // Return the background
+    return backgrounds[key];
+  }
+
   const projects = useStaticQuery(graphql`
     query ProjectsQuery {
       allMdx(filter: { fields: { collection: { eq: "projects" } } }) {
@@ -20,14 +59,13 @@ const LatestProjects = () => {
             title
             technologies
             path
+            intro
           }
           id
         }
       }
     }
   `);
-
-  console.log(projects);
 
   return (
     <section className={latestProjects}>
@@ -40,9 +78,24 @@ const LatestProjects = () => {
         </div>
         <div className={latestProjectsGrid}>
           {projects.allMdx.nodes.map((project) => (
-            <Link to={project.frontmatter.path} key={project.id}>
-              {project.frontmatter.title}
-            </Link>
+            <div className={projectCard} key={project.id}>
+              <Link
+                to={project.frontmatter.path}
+                className={projectCardLogoContainer}
+              >
+                {getBackground(project.id)}
+              </Link>
+              <ul className={projectCardTags}>
+                {project.frontmatter.technologies.map((technology) => (
+                  <li key={technology}>{technology}</li>
+                ))}
+              </ul>
+              <h3>{project.frontmatter.title}</h3>
+              <p>{project.frontmatter.intro}</p>
+              <Link className={projectCardLink} to={project.frontmatter.path}>
+                More info
+              </Link>
+            </div>
           ))}
         </div>
       </div>

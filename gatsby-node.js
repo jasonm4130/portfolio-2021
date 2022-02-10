@@ -52,7 +52,9 @@ async function turnProjectIntoPage({ graphql, actions }) {
         nodes {
           frontmatter {
             title
+            technologies
             path
+            intro
           }
           id
         }
