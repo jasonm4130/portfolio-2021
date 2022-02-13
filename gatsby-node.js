@@ -55,6 +55,7 @@ async function turnProjectIntoPage({ graphql, actions }) {
             technologies
             path
             intro
+            logo
           }
           id
         }

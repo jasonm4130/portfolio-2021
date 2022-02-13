@@ -8,10 +8,12 @@ import LatestProjects from '../components/latest-projects/LatestProjects';
 // markup
 const IndexPage = () => (
   <Layout>
-    <Hero />
-    <Experience />
-    <AboutMe />
-    <LatestProjects />
+    <>
+      <Hero />
+      <Experience />
+      <AboutMe />
+      <LatestProjects />
+    </>
   </Layout>
 );
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StaticImage } from 'gatsby-plugin-image';
+import Img from 'gatsby-image';
 
 import {
   aboutMe,
@@ -22,9 +22,9 @@ const AboutMe = () => (
   <section className={aboutMe}>
     <div className={aboutMeContainer}>
       <div className={aboutMeImgContainer}>
-        <StaticImage
+        <Img
           className={aboutMeImg}
-          src="../../assets/images/jason-profile.JPG"
+          fixed="../../assets/images/jason-profile.JPG"
           alt="Image of Jason Matthew"
         />
         <Elipse className={aboutMeElipse} />

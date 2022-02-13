@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Img from 'gatsby-image';
 
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import {
@@ -60,6 +61,7 @@ const LatestProjects = () => {
             technologies
             path
             intro
+            logo
           }
           id
         }
@@ -84,6 +86,12 @@ const LatestProjects = () => {
                 className={projectCardLogoContainer}
               >
                 {getBackground(project.id)}
+                {project?.frontmatter?.logo && (
+                  <img
+                    src={project.frontmatter.logo}
+                    alt={project.frontmatter.title}
+                  />
+                )}
               </Link>
               <ul className={projectCardTags}>
                 {project.frontmatter.technologies.map((technology) => (
