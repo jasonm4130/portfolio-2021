@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Img from 'gatsby-image';
 
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import {
@@ -14,6 +13,7 @@ import {
   projectCardTags,
   projectCardLink,
   projectCardLogoContainer,
+  projectCardLogo,
 } from './latest-projects.module.scss';
 
 // Import the backgrounds
@@ -61,13 +61,17 @@ const LatestProjects = () => {
             technologies
             path
             intro
-            logo
+            logo {
+              dataURI
+            }
           }
           id
         }
       }
     }
   `);
+
+  console.log(projects);
 
   return (
     <section className={latestProjects}>
@@ -88,7 +92,8 @@ const LatestProjects = () => {
                 {getBackground(project.id)}
                 {project?.frontmatter?.logo && (
                   <img
-                    src={project.frontmatter.logo}
+                    className={projectCardLogo}
+                    src={project.frontmatter.logo.dataURI}
                     alt={project.frontmatter.title}
                   />
                 )}

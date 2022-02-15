@@ -1,4 +1,6 @@
 const path = require('path');
+const svgToMiniDataURI = require('mini-svg-data-uri');
+const fs = require('fs-extra');
 
 async function turnPostIntoPage({ graphql, actions }) {
   // Get the page template
@@ -55,7 +57,9 @@ async function turnProjectIntoPage({ graphql, actions }) {
             technologies
             path
             intro
-            logo
+            logo {
+              dataURI
+            }
           }
           id
         }
@@ -102,4 +106,27 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value: getNode(node.parent).sourceInstanceName,
     });
   }
+};
+
+exports.createResolvers = ({ createResolvers }) => {
+  const resolvers = {
+    File: {
+      dataURI: {
+        type: 'String',
+        async resolve(parent, args, context, info) {
+          if (
+            parent.extension === 'svg' &&
+            parent.sourceInstanceName === 'svgs'
+          ) {
+            const svg = await fs.readFile(parent.absolutePath, 'utf8');
+            return svgToMiniDataURI(svg);
+          }
+
+          return null;
+        },
+      },
+    },
+  };
+
+  createResolvers(resolvers);
 };
