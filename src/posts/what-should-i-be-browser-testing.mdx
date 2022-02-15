@@ -1,0 +1,27 @@
+---
+title: What browsers should I be testing against
+tags: [development, testing, browsers]
+path: posts/what-browsers-should-i-test
+---
+
+We all know that we should be doing some form of browser testing to ensure that our code is working as expected across devices, but how much thought have we given to exactly which browsers we should be doing this testing in?
+
+Recently this question came us as I was discussing with a colleague, I didn't realise before that conversation that I have some strong opinions and thoughts about this matter, and quite frankly I think a lot of developers are using time that might be better spent elsewhere on testing in browsers that they really shouldn't need to test in.
+In this article I am going to provide my reasoning behind why I have this point of view and as always happy to be challenged on this topic, just like any other. I would love to learn that I have it wrong and am missing some crucial peice of information.
+
+## What are our options?
+
+The first piece of information that I think is crucial to understanding which browsers we should be testing in is understanding what options we have for different browsers.
+To do this I am going to compare a few different modern and widely used browsers and note if they are feasible to do any testing against or not.
+
+### Chrome
+
+The big one, everyone is familiar with this one, and likewise it most definitely should be an option that we consider testing against.
+
+### Edge
+
+Edge (modern), Microsoft released a new version of Edge with their regular rolling releases in windows 10 sometime last year, this release built edge ontop of the open source parts of Chrome, meaning if you are testing in Chrome your are testing in Edge.
+
+### Firefox
+
+Firefox is one of the only independent browsers, and as such it's not built upon anyone elses code, this makes it unique. It's uniqueness and market share (while small) is substancial enough that we should test against it.
