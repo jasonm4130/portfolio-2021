@@ -1,27 +1,52 @@
 ---
-title: What browsers should I be testing against
+title: Cross Platform Testing, Do I need to do it?
 tags: [development, testing, browsers]
-path: posts/what-browsers-should-i-test
+path: /posts/cross-browser-testing
 ---
 
-We all know that we should be doing some form of browser testing to ensure that our code is working as expected across devices, but how much thought have we given to exactly which browsers we should be doing this testing in?
+We all know that we should be doing some form of browser testing to ensure that our code is working as expected across devices, but how much thought have we given to exactly which browsers and what devices we should be testing against?
 
-Recently this question came us as I was discussing with a colleague, I didn't realise before that conversation that I have some strong opinions and thoughts about this matter, and quite frankly I think a lot of developers are using time that might be better spent elsewhere on testing in browsers that they really shouldn't need to test in.
+Recently this question came us as I was discussing with a colleague, I didn't realize before that conversation that I have some strong opinions and thoughts about this matter, and quite frankly I think a lot of developers are using time that might be better spent elsewhere on testing in browsers on devices that they really shouldn't need to test in.
 In this article I am going to provide my reasoning behind why I have this point of view and as always happy to be challenged on this topic, just like any other. I would love to learn that I have it wrong and am missing some crucial peice of information.
 
-## What are our options?
+## What browsers and platforms should I be testing against?
 
-The first piece of information that I think is crucial to understanding which browsers we should be testing in is understanding what options we have for different browsers.
-To do this I am going to compare a few different modern and widely used browsers and note if they are feasible to do any testing against or not.
+In my opinion, and unless there is some specific set of requirements that mean you need to do contrary (in which case you probably don't need to read anymore).
+I believe we should be testing browsers and platforms as follows:
 
-### Chrome
+- Chrome (Mac or Windows, pick one)
+- Firefox (Mac or Windows, pick one)
+- Safari (Mac)
+- iOS Safari
 
-The big one, everyone is familiar with this one, and likewise it most definitely should be an option that we consider testing against.
+That's it.
 
-### Edge
+I know it's a pretty narrow list but I think this list goes above and beyond the 80/20 rule with the browsers and platforms listed above.
+Based on current usage stats the above list covers about 91.5% (these differ slightly based on where you get them from but for a decent list I am checking both the [can-i-use usage table](https://caniuse.com/usage-table) and [statcounter](https://gs.statcounter.com/)).
 
-Edge (modern), Microsoft released a new version of Edge with their regular rolling releases in windows 10 sometime last year, this release built edge ontop of the open source parts of Chrome, meaning if you are testing in Chrome your are testing in Edge.
+## Pick one platform?
 
-### Firefox
+It might seem strange to any seasoned web developer to see the suggestion to pick either mac or windows and test only on one.
+In the past it would be common to test against both platforms, to make sure that your website displayed correctly on both.
+Well there is good news, gone are the days of having VM's open just to test a browser, or jumping on browser-stack after every change to make sure everything is as expected.
 
-Firefox is one of the only independent browsers, and as such it's not built upon anyone elses code, this makes it unique. It's uniqueness and market share (while small) is substancial enough that we should test against it.
+The biggest reason for being able to pick one platform, test on it and then be confident in the results is, the amount of work that has been done around browser specs in the last decade or so.
+If you don't believe me read through the [W3C spec for Flexbox](https://www.w3.org/TR/css-flexbox-1/), it's well articulated, comprehensive, and I think the most important point for this article, followed.
+The major browser developers, whether they are the open-source developers putting in time over the weekend working on the Chromium base that powers Edge, Chrome and a number of other browsers.
+Or the Apple developers putting in long days to ensure that your iOS browser ships with the latest features (yeah they might have forgotten to do it in their desktop browser, but they'll get to it).
+There is a clear goal that they are working towards, and it's no longer up for debate or interpretation, it's not being guessed at anymore what `flex-direct: row;` means, it's all been decided through the robust W3C standards process.
+
+Now with that in mind you might be thinking, great so those devs know what it should be doing, but how does that ensure that they haven't introduced bugs in one platform or another?
+Well to my knowledge, this is a great question as the browsers are usually compiled / built slightly differently between platforms.
+This is where the other advancement comes in, as the web has evolved and become more mature, more and more testing comes into play for these browsers.
+I would be very surprised if you as a single developer writing relatively standard code would hit a bug that isn't already being worked on or patched in these browsers rendering engines or script engines (CSS and JS respectively).
+That's not to say it won't happen, if you are really pushing the boundaries of what's possible, you will run into edge cases and scenarios that might not have the most robust tests, I'm merely stating that in 99% of cases you probably aren't writing code that is going to revolutionaries how the web is built. In the 1% of cases that you are however, I'm confident that it's not on a high stakes production site.
+I am also sure that the devs working on whatever engine happens to have the edge case or bug in it would love a bug report as well.
+
+## Summary (TLDR)
+
+So what am I saying?
+I'm saying you should be able to pick 4 browsers (Chrome, Firefox, Safari, and iOS Safari) and build websites checking against these browsers without needing to jump between machines or running VMs because the heavy lifting has already been done for you.
+Many times we feel like we are the only person working on a particular thing, and this is often further from the truth, there are hundreds of thousands of developers just like you writing almost the exact same code as you every day.
+Maybe you will hit a bug, but in the grand scheme of things the hours you spend testing for differences between Chrome on Windows and Chrome on OSX are miniscule when compared to the efforts made by the developers writing the browser and the feature spec.
+So pick a platform, test in it (I am in no means saying don't test) then rest easy at night knowing that someone else has tested that feature on both platforms to ensure that it renders or is process the same between them.
