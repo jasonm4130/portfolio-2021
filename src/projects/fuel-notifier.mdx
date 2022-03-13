@@ -4,27 +4,78 @@ date: "2019-11-21"
 technologies: [nodejs, api, twillio, PM2]
 logo: ../assets/svgs/fuel-notifier.svg
 path: /projects/fuel-notifier
+repo: "https://github.com/jasonm4130/fuel-notifier"
 intro: "A nodejs application that fetches data from open API's and checks if the fuel cycle is approaching its lowest point, notifiying a user via text message."
 ---
 
-```javascript
-const { FuelNotifier } = require("@fuel-js/fuel-notifier");
+## Intro
 
-// this is to test some syntax highlighting
-const fuelNotifier = new FuelNotifier({
-  apiKey: "<api-key>",
-  apiSecret: "<api-secret>",
-  apiUrl: "https://api.fuel.fuelfabric.com",
-  apiVersion: "v1",
-  webhookUrl: "https://webhook.fuelfabric.com/webhook/<webhook-id>",
-  webhookSecret: "<webhook-secret>",
-  webhookVersion: "v1",
-  webhookHeaders: {
-    "X-Custom-Header": "Custom-Value",
-  },
-  webhookMethod: "POST",
-  webhookBody: {
-    test: "test",
-  },
-});
+In QLD Australia a car insurance company runs an open API that allows users to view the current fuel cycle price and trend. E.g High but going down, low but going up etc.
+They provide a convienient app to allow users to view this data as needed, however the app lacks notificaions. To me this was a huge deal as I usually only filled up when my car was empty.
+At that point it didn't matter where the fuel price was in the cycle, my car was empty and I needed to fill it either way.
+The fuel price cycle app only served to taunght me suggesting that I always filled up at the high point of the cycle.
+
+I needed a way to know when the fuel price was at it's lowest in the cycle not just check the price at the current point in time.
+To do this I was able to use the existing API to gather the data via a node js app, and hook into the text messaging service twillio.
+This solution allowed me to get notifications when the price was at it's lowest point so I could fill up at the optimal time.
+
+## Challenges
+
+A brief overview of the challenges that I hit and how I was able to overcome them. It should be noted here that this was mainly a fun project that I did in an afternoon.
+Therefore some of the ways of solving these wouldn't be ideal in a production, or mission crytical system.
+
+### API data
+
+The first hurdle I hit when working on this is that the API data returned isn't "human redable", instead it is simply a int based on the current price fluctuation and indicators.
+To resolve this I just reverse engineered the code in the application, this gave me something like:
+
+```javascript
+const advise = (PriceFluctuation, priceIndicator) => {
+  switch (priceIndicator) {
+    case 0:
+      return "No fuel advice for your area.";
+    case 1:
+    case 3:
+      return "Prices are high, so wait if you can.";
+    case 2:
+      return PriceFluctuation === 2 || PriceFluctuation === 1
+        ? "Average price is good."
+        : "Average price is good. Buy Now.";
+    default:
+  }
+};
+
+const trend = (priceFluctuation, priceIndicator) => {
+  switch (priceFluctuation) {
+    case 1:
+      return priceIndicator === 2
+        ? "Lately, prices have been going up. Buy now."
+        : "Lately, prices have been going up.";
+    case 2:
+      return priceIndicator === 2
+        ? "Lately, prices have been going down. Buy now."
+        : "Lately, prices have been going down.";
+    default:
+  }
+};
 ```
+
+### Persistent State
+
+The next obsitcale to overcome was persistent state. I knew that I would need to hit the API on a chron and couldn't get updates from it imedietly.
+I initially had the chron run every 30 mins but soon realised that I would recieve a text message every 30 mins if the fule price was in the target range, this is far from ideal when using a paid service like twillio.
+I had initially thought about having the script write data to disk every 30 mins and then comparing the two against one another.
+Upon considering this I eventually decided against it, for two main reasons.
+The first reason being I would be running this on my home server, and I wanted to avoid prematurely wearing out the SSD.
+The second reason I choose against this option is I wasn't exactly sure how I wanted to run the script Docker, VM etc, and I wanted to avoid issues with file permissions if possible.
+
+Ultimately I eneded up moving the chron from an external source to within the script itself.
+So the script would be a long running script keeping the last API response in memeory and check that the response is different before sending a message.
+This ultimately solved the question of where I would keep the script running, and I ended up running the script in a VM via PM2 to check that it is running and restart it if it fails.
+As the response is in memory, if the script fails and is restarted a message is always sent as there is no previous API call to compare it against.
+This is a possible point of imporvement in the future and could be solved with writing changed API calls to disk, this still presents possible issues with write sequences as each changed call would still need to be written to disk.
+
+## Summary
+
+Overall the project was quite successful, allowing me to run the long running script on my home server for minimal cost (about $5 for Twillio would last over a month but this would change with more frequent fuel prices).
+I had stopped using the service when my free credits at twillio ran out, however with current fuel price fluctuations at more than 50c difference between high and low points in the cycle, I am strongly considering turning it back on.
