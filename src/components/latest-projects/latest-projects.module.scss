@@ -59,6 +59,9 @@
     font-weight: 600;
     font-size: 40px;
   }
+  .project-card-logo {
+    font-size: 45px;
+  }
 }
 
 .project-card-tags {
@@ -116,4 +119,7 @@
   position: absolute;
   padding: 45px;
   filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+  color: var(--light);
+  text-align: center;
+  line-height: 60px;
 }

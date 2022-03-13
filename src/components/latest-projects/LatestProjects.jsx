@@ -90,13 +90,24 @@ const LatestProjects = () => {
                 className={projectCardLogoContainer}
               >
                 {getBackground(project.id)}
-                {project?.frontmatter?.logo && (
-                  <img
-                    className={projectCardLogo}
-                    src={project.frontmatter.logo.dataURI}
-                    alt={project.frontmatter.title}
-                  />
-                )}
+                {
+                  // If there is a logo we should use it
+                  project?.frontmatter?.logo && (
+                    <img
+                      className={projectCardLogo}
+                      src={project.frontmatter.logo.dataURI}
+                      alt={project.frontmatter.title}
+                    />
+                  )
+                }
+                {
+                  // If there is no logo, use the title
+                  project.frontmatter.logo === null && (
+                    <h3 className={projectCardLogo}>
+                      {project.frontmatter.title}
+                    </h3>
+                  )
+                }
               </Link>
               <ul className={projectCardTags}>
                 {project.frontmatter.technologies.map((technology) => (
