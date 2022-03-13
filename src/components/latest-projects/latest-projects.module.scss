@@ -58,6 +58,7 @@
     margin-bottom: 30px;
     font-weight: 600;
     font-size: 40px;
+    line-height: 1.2;
   }
   .project-card-logo {
     font-size: 45px;
@@ -118,8 +119,8 @@
 .project-card-logo {
   position: absolute;
   padding: 45px;
-  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
   color: var(--light);
-  text-align: center;
   line-height: 60px;
+  text-align: center;
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
 }
