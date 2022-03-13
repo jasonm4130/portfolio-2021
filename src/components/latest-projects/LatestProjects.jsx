@@ -21,7 +21,7 @@ import {
 const backgrounds = {};
 
 const LatestProjects = () => {
-  const projects = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
     query ProjectsQueryAndBackgroundsQuery {
       allMdx(filter: { fields: { collection: { eq: "projects" } } }) {
         nodes {
@@ -47,9 +47,9 @@ const LatestProjects = () => {
     }
   `);
 
-  const backgroundArray = projects.allFile.edges.map(
-    ({ node }) => node.dataURI
-  );
+  const projects = data.allMdx.nodes;
+
+  const backgroundArray = data.allFile.edges.map(({ node }) => node.dataURI);
 
   function getBackground(key) {
     if (backgrounds[key]) {
@@ -84,7 +84,7 @@ const LatestProjects = () => {
           </div>
         </div>
         <div className={latestProjectsGrid}>
-          {projects.allMdx.nodes.map((project) => (
+          {projects.map((project) => (
             <div className={projectCard} key={project.id}>
               <Link
                 to={project.frontmatter.path}
