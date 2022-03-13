@@ -117,15 +117,6 @@
   margin-bottom: 0;
   margin-left: calc(var(--card-padding) * -1);
   overflow: hidden;
-  svg {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    @include breakpoints.up(tablet) {
-      width: auto;
-      height: 100%;
-    }
-  }
 }
 
 .project-card-logo {
@@ -135,4 +126,12 @@
   line-height: 60px;
   text-align: center;
   filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+}
+
+.project-background-image {
+  width: 100%;
+  min-width: 100%;
+  height: auto;
+  min-height: 100%;
+  object-fit: cover;
 }

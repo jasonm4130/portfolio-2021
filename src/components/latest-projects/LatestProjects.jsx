@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Img from 'gatsby-image';
 
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import {
@@ -14,46 +15,14 @@ import {
   projectCardLink,
   projectCardLogoContainer,
   projectCardLogo,
+  projectBackgroundImage,
 } from './latest-projects.module.scss';
-
-// Import the backgrounds
-import Background1 from '../../assets/svgs/project-backgrounds/background-1.svg';
-import Background2 from '../../assets/svgs/project-backgrounds/background-2.svg';
-import Background3 from '../../assets/svgs/project-backgrounds/background-3.svg';
-import Background4 from '../../assets/svgs/project-backgrounds/background-4.svg';
-import Background5 from '../../assets/svgs/project-backgrounds/background-5.svg';
-import Background6 from '../../assets/svgs/project-backgrounds/background-6.svg';
 
 const backgrounds = {};
 
-const backgroundArray = [
-  <Background1 />,
-  <Background2 />,
-  <Background3 />,
-  <Background4 />,
-  <Background5 />,
-  <Background6 />,
-];
-
 const LatestProjects = () => {
-  function getBackground(key) {
-    if (backgrounds[key]) {
-      return backgrounds[key];
-    }
-
-    // Get a random background
-    const randomBackground =
-      backgroundArray[Math.floor(Math.random() * backgroundArray.length)];
-
-    // Add the background to the object
-    backgrounds[key] = randomBackground;
-
-    // Return the background
-    return backgrounds[key];
-  }
-
   const projects = useStaticQuery(graphql`
-    query ProjectsQuery {
+    query ProjectsQueryAndBackgroundsQuery {
       allMdx(filter: { fields: { collection: { eq: "projects" } } }) {
         nodes {
           frontmatter {
@@ -68,10 +37,42 @@ const LatestProjects = () => {
           id
         }
       }
+      allFile(filter: { relativeDirectory: { eq: "project-backgrounds" } }) {
+        edges {
+          node {
+            dataURI
+          }
+        }
+      }
     }
   `);
 
-  console.log(projects);
+  const backgroundArray = projects.allFile.edges.map(
+    ({ node }) => node.dataURI
+  );
+
+  function getBackground(key) {
+    if (backgrounds[key]) {
+      return backgrounds[key];
+    }
+
+    // Get a random background
+    const randomBackground = (
+      <img
+        className={projectBackgroundImage}
+        src={
+          backgroundArray[Math.floor(Math.random() * backgroundArray.length)]
+        }
+        alt="Project Background"
+      />
+    );
+
+    // Add the background to the object
+    backgrounds[key] = randomBackground;
+
+    // Return the background
+    return backgrounds[key];
+  }
 
   return (
     <section className={latestProjects}>
